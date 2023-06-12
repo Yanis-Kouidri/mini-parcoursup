@@ -13,19 +13,19 @@ public class Student {
 	private static final AtomicInteger studentsCounter = new AtomicInteger(0);
 
 	// The student identifier
-	private int studentId;
+	private final int studentId;
 
 	// The student last name
-	private String lastName;
+	private final String lastName;
 
 	// The student first name
-	private String firstName;
+	private final String firstName;
 
 	// The student average grade
-	private float grade;
+	private final float grade;
 
 	// The list of the students favorites schools, sorted by preferences
-	private ArrayList<School> schoolPreferences;
+	private final ArrayList<School> schoolPreferences;
 
 	/** Instantiates a student object
 	 * @param lastName The student last name
@@ -35,7 +35,7 @@ public class Student {
 		this.studentId = studentsCounter.incrementAndGet();
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.grade = new Random().nextFloat() * 20.0f;
+		this.grade = new Random().nextFloat(0, 20);
 		this.schoolPreferences = new ArrayList<School>();
 	}
 
