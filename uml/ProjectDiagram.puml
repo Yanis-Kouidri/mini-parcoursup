@@ -1,0 +1,66 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
+class Student {
+- nextStudentId : static int
+- studentId : int
+- lastName : String
+- firstName : String
+- grade : float
+- schoolPreferences : ArrayList<School>
+----
++ getStudentId() : int
++ getLastName() : String
++ getFirstName() : String
++ getGrade() : float
++ getSchoolPreferences() : ArrayList<School>
++ addSchoolToPref(School) : void
+----
++ Student(lastName : String, firstName : String)
+}
+
+class School {
+- nextSchoolId : static int
+- schoolId : int
+- schoolName : String
+- studentPreferences : ArrayList<Student>
+----
++ getSchoolId() : int
++ getSchoolName() : String
++ getStudentPreferences() : ArrayList<Student>
++ addStudentToPref(Student) : void
+----
++ School (schoolName : String)
+}
+
+class FileManager {
+final static
+----
+----
++ readStudentsFile() : ArrayList<Student>
++ readSchoolsFile() : ArrayList<School>
+
+}
+
+class Association {
+- result HashMap<String, String>
+----
++ matchStudentsSchools(studentsList : ArrayList<Student>, schoolList : ArrayList<School>)
++ printResult() : void
++ writeResult() : void
+}
+
+School "*" <..> "*" Student
+'School "0..1" -- "0..*" Student
+FileManager <.. "*" Student
+FileManager <.. "*" School
+
+Association <.. "*" Student
+Association <.. "*" School
+
+
+
+
+@enduml
