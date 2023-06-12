@@ -2,9 +2,8 @@
 'https://plantuml.com/class-diagram
 
 
-
 class Student {
-- nextStudentId : static int
+- studentCounter : static int
 - studentId : int
 - lastName : String
 - firstName : String
@@ -22,7 +21,7 @@ class Student {
 }
 
 class School {
-- nextSchoolId : static int
+- schoolCounter : static int
 - schoolId : int
 - schoolName : String
 - studentPreferences : ArrayList<Student>
@@ -59,8 +58,6 @@ FileManager <.. "*" School
 
 Association <.. "*" Student
 Association <.. "*" School
-
-
 
 
 @enduml
