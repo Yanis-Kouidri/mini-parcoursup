@@ -12,19 +12,23 @@ L'école
 On veut écrire un programme qui a partir d'une liste d'étudiants avec pour chaque étudiant un choix et une liste d'école avec une liste ordonnée de ses étudiant préfére, trouver une école pour chaque étudiant.
 
 R1 : Comment R0 ?
+
 	Créer une liste des étudiants sans école
+	Créer un dictionnaire école -> étudiants dans sa cour
 	numéro de tour = 0
 	Tant que "Il reste des étudiants sans école"
-		numéro de tour++
-		ittérer selon la règle du stable mariage
+		Placer les étudiant dans des écoles
+		Incrémenter le numéro de tour
 	Fin tant que
+	Assigner pour chaque étudiant l'école dans laquelle il ira
+	Retourner le résultat 
 	
 R2 : Comment : "Créer une liste des étudiants sans école" ?
 	Copier la liste des tous les étudiants
 
-R2 : Comment "Ittérer selon la règle du stable mariage ?"
+R2 : Comment "Placer les étudiant dans des écoles ?"
 
-	Placer les étudiants dans la cour de leur école de premier choix
+	Placer les étudiants dans la cour de leur école de i ème choix (i dépend du tour)
 	Décider qui reste dans la cour et qui part
 	Calculer la liste des étudiants sans école.
 	
@@ -34,7 +38,7 @@ R2 : Comment "Il reste des étudiants sans école" ?
 
 R3 : Comment "Placer les étudiants dans la cour de leur école de premier choix" ?
 
-	Créer un dictionnaire école -> étudiants dans sa cour
+	
 	Pour unEtudiant dans Tous les étudiant sans école
 		Récupérer ieme choix en fonction du numéro de tour
 		ajouter l'étudiant dans la cour de l'école
@@ -44,10 +48,13 @@ R3 : Comment "Placer les étudiants dans la cour de leur école de premier choix
 
 R3 : Comment "Décider qui reste dans la cour et qui part" ?
 
-	Si le nombre d'étudiant dans la cour de l'école est inférieur ou égale à la capacité de l'école alors:
-		Tous les étudiant restent dans la cour et sont en attente
-	Sinon
-		L'école choisi x étudiants selon sa liste de choix (x est la capacité maximale de l'école)
+	Pour toute les écoles
+
+		Si le nombre d'étudiant dans la cour de l'école est inférieur ou égale à la capacité de l'école alors:
+			Tous les étudiant restent dans la cour et sont en attente
+		Sinon
+			L'école choisi x étudiants selon sa liste de choix (x est la capacité maximale de l'école)
+	Fin Pour
 	
 R3 : Comment " Calculer la liste des étudiants sans école." ?
 
@@ -55,11 +62,12 @@ R3 : Comment " Calculer la liste des étudiants sans école." ?
 R4 : comment : " L'école choisi x étudiants selon sa liste de choix (x est la capacité maximale de l'école) "
 
 	capacite_restante = capacité école
-	Pour un étudiant dans les choix d'étudiant de l'école :
+	Pour un étudiant dans les choix d'étudiants de l'école :
 		Si capacité restante > 0 alors
 		
 			Si l'étudiant est dans la cour alors
-				il est ajouté à la liste des "en attente"
+				Ajouter l'étudiant à la liste des "en attente"
+				Retirer l'étudiant ajouté des étudiants sans école
 				capacite_restante - 1
 			Sinon
 				Continuer (ne rien faire)
@@ -69,6 +77,7 @@ R4 : comment : " L'école choisi x étudiants selon sa liste de choix (x est la 
 			sortir de la boucle
 		Fin Si
 	Fin Pour
+
 		
 	
 	

@@ -26,10 +26,11 @@ public final class FileManager {
 			JsonObject student = element.getAsJsonObject();
 			String lastName = student.get("lastName").getAsString();
 			String firstName = student.get("firstName").getAsString();
-			Student currentStudent = new Student(lastName, firstName);
+			int studentId = student.get("studentId").getAsInt();
+			Student currentStudent = new Student(lastName, firstName, studentId);
 			
-			JsonArray preferedSchoolsArray = student.get("preferedSchools").getAsJsonArray();
-			for (JsonElement aSchool : preferedSchoolsArray) {
+			JsonArray preferredSchoolsArray = student.get("preferredSchools").getAsJsonArray();
+			for (JsonElement aSchool : preferredSchoolsArray) {
 				String schoolName = aSchool.getAsString();
 				setSchoolPref(currentStudent, schoolName, listOfAllSchool);
 			}
@@ -49,6 +50,17 @@ public final class FileManager {
 
 			int schoolCapacity = school.get("capacity").getAsInt();
 			School currentSchool = new School(schoolName, schoolCapacity);
+
+			JsonArray preferredSchoolsArray = school.get("preferredStudents").getAsJsonArray();
+			for (JsonElement aStudent : preferredSchoolsArray) {
+				int studentId = aStudent.getAsInt();
+				try {
+					currentSchool.addStudentIdToPref(studentId);
+				} catch (StudentAlreadyPrefException e) {
+					System.err.println("There is an error in student id");
+				}
+			}
+
 			schoolsList.add(currentSchool);
 		}
 		return schoolsList;	

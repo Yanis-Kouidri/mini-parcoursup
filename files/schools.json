@@ -1,23 +1,48 @@
 [
-  { "schoolName" : "ENSIMAG",
-    "capacity" : "50" },
-  { "schoolName" : "ENSEEIHT",
-    "capacity" : "50" },
-  { "schoolName" : "ENSIIE",
-    "capacity" : "50" },
-  { "schoolName" : "EPITA",
-    "capacity" : "50" },
-  { "schoolName" : "TELECOM NANCY",
-    "capacity" : "50" },
-  { "schoolName" : "UTC",
-    "capacity" : "50" },
-  { "schoolName" : "UTT",
-    "capacity" : "50" },
-  { "schoolName" : "INSA TOULOUSE",
-    "capacity" : "50" },
-  { "schoolName" : "UTBM",
-    "capacity" : "50" }
+  {
+    "schoolName" : "ENSIMAG",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
 
-
-
+  },
+  {
+    "schoolName" : "ENSEEIHT",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
+  },
+  {
+    "schoolName" : "ENSIIE",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
+  },
+  {
+    "schoolName" : "EPITA",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
+  },
+  {
+    "schoolName" : "TELECOM NANCY",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
+  },
+  {
+    "schoolName" : "UTC",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
+  },
+  {
+    "schoolName" : "UTT",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
+  },
+  {
+    "schoolName" : "INSA TOULOUSE",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
+  },
+  {
+    "schoolName" : "UTBM",
+    "capacity" : "50",
+    "preferredStudents": ["01", "02", "03"]
+  }
 ]

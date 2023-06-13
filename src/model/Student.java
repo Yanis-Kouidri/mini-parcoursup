@@ -8,9 +8,6 @@ import java.util.ArrayList;
 
 public class Student {
 
-	// A counter that increments
-	private static final AtomicInteger studentsCounter = new AtomicInteger(0);
-
 	// The student identifier
 	private final int studentId;
 
@@ -27,8 +24,8 @@ public class Student {
 	 * @param lastName The student lastname
 	 * @param firstName The student firstname
 	 */
-	public Student(String lastName, String firstName) {	
-		this.studentId = studentsCounter.incrementAndGet();
+	public Student(String lastName, String firstName, int studentId) {
+		this.studentId = studentId;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.schoolPreferences = new ArrayList<>();

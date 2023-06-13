@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -33,7 +35,9 @@ public class School {
     /**
      * The list of desired students by each school
      */
-    private final ArrayList<Student> studentPreferences;
+    private final List<Student> studentPreferences;
+
+    private final List<Integer> studentIdPreferences;
 
     // Constructor
 
@@ -48,10 +52,14 @@ public class School {
         if (schoolName.isEmpty()) {
             throw new IllegalArgumentException("The school name can't be empty");
         }
+        if (schoolCapacity < 1) {
+            throw new IllegalArgumentException("The school capacity can't be null or negative");
+        }
         this.schoolId = schoolCounter.getAndIncrement();
         this.schoolName = schoolName;
         this.schoolCapacity = schoolCapacity;
         this.studentPreferences = new ArrayList<>();
+        this.studentIdPreferences = new ArrayList<>();
     }
 
     // Methods
@@ -64,8 +72,12 @@ public class School {
         return schoolName;
     }
 
-    public ArrayList<Student> getStudentPreferences() {
+    public List<Student> getStudentPreferences() {
         return studentPreferences;
+    }
+
+    public int getSchoolCapacity() {
+        return schoolCapacity;
     }
 
     /**
@@ -83,5 +95,28 @@ public class School {
         }
 
         this.studentPreferences.add(prefStudent);
+    }
+
+    public void addStudentIdToPref(Integer idPrefStudent) throws StudentAlreadyPrefException {
+        if (idPrefStudent == null) {
+            throw new IllegalArgumentException("The student must be not null");
+        }
+        if (this.studentIdPreferences.contains(idPrefStudent)) {
+            throw new StudentAlreadyPrefException();
+        }
+
+        this.studentIdPreferences.add(idPrefStudent);
+    }
+
+    public void studentIdToStudentObject(Set<Student> allTheStudents) {
+        for(Student aStudent : allTheStudents) {
+            if (studentIdPreferences.contains(aStudent.getStudentId())) {
+                try {
+                    addStudentToPref(aStudent);
+                } catch (StudentAlreadyPrefException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 }
