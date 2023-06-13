@@ -14,8 +14,9 @@ public class School {
 
     /**
      * This counter allows adding a unique id to each school
+     * -1 is use to start at 0
      */
-    private static final AtomicInteger schoolCounter = new AtomicInteger(-1);
+    private static final AtomicInteger schoolCounter = new AtomicInteger(0);
 
     /**
      * The unique id for each school
@@ -47,7 +48,7 @@ public class School {
         if (schoolName.isEmpty()) {
             throw new IllegalArgumentException("The school name can't be empty");
         }
-        this.schoolId = schoolCounter.incrementAndGet();
+        this.schoolId = schoolCounter.getAndIncrement();
         this.schoolName = schoolName;
         this.schoolCapacity = schoolCapacity;
         this.studentPreferences = new ArrayList<>();
