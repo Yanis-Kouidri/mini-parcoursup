@@ -27,7 +27,10 @@ public final class FileManager {
 			JsonArray preferedSchoolsArray = student.get("preferedSchools").getAsJsonArray();
 			for (JsonElement aSchool : preferedSchoolsArray) {
 				String schoolName = aSchool.toString();
-				currentStudent.addSchoolToPref(new School(schoolName, 0)); //FIXME
+				currentStudent.addSchoolToPref(new School(schoolName, 0));
+				//FIXME : Create 2 method, one for creating a list of student without school pref
+				// One to create a list of school
+				// Then add school to schoolPreference without duplication
 			}
 			studentsList.add(currentStudent);
 		}
