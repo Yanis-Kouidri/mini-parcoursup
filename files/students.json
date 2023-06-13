@@ -1,27 +1,27 @@
 [
 {
-    "lastName": "Gaudinet",
-    "firstName": "Léo",
+    "lastName": "De La Fonaine",
+    "firstName": "Jean",
     "preferedSchools": ["ENSIMAG", "ENSEEIHT", "ENSIIE"]
 },
 {
-    "lastName": "Migliore",
-    "firstName": "Cassandre",
+    "lastName": "Hugo",
+    "firstName": "Victor",
     "preferedSchools": ["EPITA", "TELECOM NANCY", "UTC"]
 },
 {
-    "lastName": "Galouz",
-    "firstName": "Mortada",
+    "lastName": "De Balzac",
+    "firstName": "Honoré",
     "preferedSchools": ["ENSEEIHT", "UTC", "UTT"]
 },
 {
-    "lastName": "Legram",
-    "firstName": "Hamza",
+    "lastName": "De Maupassant",
+    "firstName": "Guy",
     "preferedSchools": ["UTBM", "UTT", "INSA TOULOUSE"]
 },
 {
-    "lastName": "Herera",
-    "firstName": "Dylan",
+    "lastName": "Stendhal",
+    "firstName": "Marie-Henri",
     "preferedSchools": ["ENSIMAG", "UTT", "ENSEEIHT"] 
 }
 ]
