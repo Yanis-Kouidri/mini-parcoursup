@@ -1,0 +1,23 @@
+[
+  { "schoolName" : "ENSIMAG",
+    "capacity" : "50" },
+  { "schoolName" : "ENSEEIHT",
+    "capacity" : "50" },
+  { "schoolName" : "ENSIIE",
+    "capacity" : "50" },
+  { "schoolName" : "EPITA",
+    "capacity" : "50" },
+  { "schoolName" : "TELECOM NANCY",
+    "capacity" : "50" },
+  { "schoolName" : "UTC",
+    "capacity" : "50" },
+  { "schoolName" : "UTT",
+    "capacity" : "50" },
+  { "schoolName" : "INSA TOULOUSE",
+    "capacity" : "50" },
+  { "schoolName" : "UTBM",
+    "capacity" : "50" }
+
+
+
+]

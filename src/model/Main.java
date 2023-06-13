@@ -3,15 +3,16 @@ package model;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main {
 
 	public static void main(String[] args) {
-		ArrayList<Student> list = null;
+		HashSet<Student> list = null;
 		try {
 			list = FileManager.getStudentsFromFile();
 		} catch (FileNotFoundException e) {
-			
+			System.err.println("File " + e.getMessage() + " not found");
 		}
 		
 		if (list != null) {
