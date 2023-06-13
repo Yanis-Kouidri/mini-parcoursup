@@ -15,7 +15,7 @@ public class School {
     /**
      * This counter allows adding a unique id to each school
      */
-    private static final AtomicInteger schoolCounter = new AtomicInteger(0);
+    private static final AtomicInteger schoolCounter = new AtomicInteger(-1);
 
     /**
      * The unique id for each school
@@ -26,6 +26,8 @@ public class School {
      * The name of the school
      */
     private final String schoolName;
+    
+    private final int schoolCapacity;
 
     /**
      * The list of desired students by each school
@@ -38,7 +40,7 @@ public class School {
      * Create a school by giving its name
      * @param schoolName The name of the school
      */
-    public School(String schoolName) {
+    public School(String schoolName, int schoolCapacity) {
         if (schoolName == null) {
             throw new IllegalArgumentException("The school name must not be not null");
         }
@@ -47,6 +49,7 @@ public class School {
         }
         this.schoolId = schoolCounter.incrementAndGet();
         this.schoolName = schoolName;
+        this.schoolCapacity = schoolCapacity;
         this.studentPreferences = new ArrayList<>();
     }
 

@@ -78,7 +78,10 @@ public class Student {
 	 * @param schoolToAdd The school to add to the list
 	 */
 	public void addSchoolToPref(School schoolToAdd) {
-		assert schoolToAdd != null;
+		if (schoolToAdd == null) {
+			throw new IllegalArgumentException();
+		}
 		schoolPreferences.add(schoolToAdd);
+		//TODO check is schoolToAdd is not already in schoolPreferences
 	}
 }

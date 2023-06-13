@@ -1,0 +1,27 @@
+[
+{
+    "lastName": "Gaudinet",
+    "firstName": "Léo",
+    "preferedSchools": ["ENSIMAG", "ENSEEIHT", "ENSIIE"]
+},
+{
+    "lastName": "Migliore",
+    "firstName": "Cassandre",
+    "preferedSchools": ["EPITA", "TELECOM NANCY", "UTC"]
+},
+{
+    "lastName": "Galouz",
+    "firstName": "Mortada",
+    "preferedSchools": ["ENSEEIHT", "UTC", "UTT"]
+},
+{
+    "lastName": "Legram",
+    "firstName": "Hamza",
+    "preferedSchools": ["UTBM", "UTT", "INSA TOULOUSE"]
+},
+{
+    "lastName": "Herera",
+    "firstName": "Dylan",
+    "preferedSchools": ["ENSIMAG", "UTT", "ENSEEIHT"] 
+}
+]
