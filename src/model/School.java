@@ -53,7 +53,6 @@ public class School {
         this.studentPreferences = new ArrayList<>();
     }
 
-
     // Methods
 
     public int getSchoolId() {
