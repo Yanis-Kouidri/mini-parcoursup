@@ -1,9 +1,8 @@
 package model; 
 import java.util.concurrent.atomic.*;
 import java.util.ArrayList;
-import java.util.Random;
 
-/** Allows to create a student object
+/** Allows creating a student object
  * @author Cédric ABDELBAKI
  */
 
@@ -15,28 +14,24 @@ public class Student {
 	// The student identifier
 	private final int studentId;
 
-	// The student last name
+	// The student lastname
 	private final String lastName;
 
-	// The student first name
+	// The student firstname
 	private final String firstName;
-
-	// The student average grade
-	private final float grade;
 
 	// The list of the students favorites schools, sorted by preferences
 	private final ArrayList<School> schoolPreferences;
 
 	/** Instantiates a student object
-	 * @param lastName The student last name
-	 * @param firstName The student first name
+	 * @param lastName The student lastname
+	 * @param firstName The student firstname
 	 */
 	public Student(String lastName, String firstName) {	
 		this.studentId = studentsCounter.incrementAndGet();
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.grade = new Random().nextFloat(0, 20);
-		this.schoolPreferences = new ArrayList<School>();
+		this.schoolPreferences = new ArrayList<>();
 	}
 
 	/** Gets the student identifier
@@ -60,15 +55,8 @@ public class Student {
 		return firstName;
 	}
 
-	/** Gets the student average grade
-	 * @return grade The student average grade
-	 */
-	public float getGrade() {
-		return grade;
-	}
-
-	/** Gets the student list of favorites schools
-	 * @return schoolPreferences The student list of favorites schools
+	/** Gets the student list of favorite schools
+	 * @return schoolPreferences The student list of favorite schools
 	 */
 	public ArrayList<School> getSchoolPreferences() {
 		return schoolPreferences;
@@ -82,6 +70,5 @@ public class Student {
 			throw new IllegalArgumentException();
 		}
 		schoolPreferences.add(schoolToAdd);
-		//TODO check is schoolToAdd is not already in schoolPreferences
 	}
 }
