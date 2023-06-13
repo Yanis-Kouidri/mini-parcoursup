@@ -1,0 +1,75 @@
+On a une liste d'écoles.
+On a une liste d'étudiants.
+
+Chaque étudiant à une liste ordonnée de ses écoles préférées.
+Chaque écoles à une lsite ordonnée de ses étudiant préférés.
+
+Dans le cas ou les écoles sont sur le balcon.
+
+Au premier tour, chaque étudiant se place sous le balcon son école préféré école.
+L'école
+
+On veut écrire un programme qui a partir d'une liste d'étudiants avec pour chaque étudiant un choix et une liste d'école avec une liste ordonnée de ses étudiant préfére, trouver une école pour chaque étudiant.
+
+R1 : Comment R0 ?
+	Créer une liste des étudiants sans école
+	numéro de tour = 0
+	Tant que "Il reste des étudiants sans école"
+		numéro de tour++
+		ittérer selon la règle du stable mariage
+	Fin tant que
+	
+R2 : Comment : "Créer une liste des étudiants sans école" ?
+	Copier la liste des tous les étudiants
+
+R2 : Comment "Ittérer selon la règle du stable mariage ?"
+
+	Placer les étudiants dans la cour de leur école de premier choix
+	Décider qui reste dans la cour et qui part
+	Calculer la liste des étudiants sans école.
+	
+R2 : Comment "Il reste des étudiants sans école" ?
+	Si la liste des étudiants sans école est vide : vrai
+	Sinon : Faux
+
+R3 : Comment "Placer les étudiants dans la cour de leur école de premier choix" ?
+
+	Créer un dictionnaire école -> étudiants dans sa cour
+	Pour unEtudiant dans Tous les étudiant sans école
+		Récupérer ieme choix en fonction du numéro de tour
+		ajouter l'étudiant dans la cour de l'école
+	Fin Pour
+
+
+
+R3 : Comment "Décider qui reste dans la cour et qui part" ?
+
+	Si le nombre d'étudiant dans la cour de l'école est inférieur ou égale à la capacité de l'école alors:
+		Tous les étudiant restent dans la cour et sont en attente
+	Sinon
+		L'école choisi x étudiants selon sa liste de choix (x est la capacité maximale de l'école)
+	
+R3 : Comment " Calculer la liste des étudiants sans école." ?
+
+
+R4 : comment : " L'école choisi x étudiants selon sa liste de choix (x est la capacité maximale de l'école) "
+
+	capacite_restante = capacité école
+	Pour un étudiant dans les choix d'étudiant de l'école :
+		Si capacité restante > 0 alors
+		
+			Si l'étudiant est dans la cour alors
+				il est ajouté à la liste des "en attente"
+				capacite_restante - 1
+			Sinon
+				Continuer (ne rien faire)
+			Fin si
+		
+		Sinon 
+			sortir de la boucle
+		Fin Si
+	Fin Pour
+		
+	
+	
+
