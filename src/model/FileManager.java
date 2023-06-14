@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.HashSet;
+import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,9 +16,7 @@ public final class FileManager {
 	private final static String STUD_FILE_PATH = "files/students.json";
 	private final static String SCHO_FILE_PATH = "files/schools.json";
 	
-	public static HashSet<Student> getStudentsFromFile() throws FileNotFoundException {
-
-		HashSet<School> listOfAllSchool = getSchoolsFromFile();
+	public static HashSet<Student> getStudentsFromFile(Set<School> listOfAllSchool) throws FileNotFoundException {
 
 		HashSet<Student> studentsList = new HashSet<>();
 		JsonArray studentsArray = createJsonArray(STUD_FILE_PATH);
@@ -79,7 +78,7 @@ public final class FileManager {
 	 * @param listOfAllSchools The complete list of schools
 	 */
 	public static void setSchoolPref(Student aStudent, String schoolName,
-									 HashSet<School> listOfAllSchools) {
+									 Set<School> listOfAllSchools) {
 		boolean isFind = false;
 
 		for (School aSchool: listOfAllSchools) {

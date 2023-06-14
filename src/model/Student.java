@@ -1,5 +1,4 @@
-package model; 
-import java.util.concurrent.atomic.*;
+package model;
 import java.util.ArrayList;
 
 /** Allows creating a student object
@@ -50,6 +49,10 @@ public class Student {
 	 */
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public String getFullName() {
+		return firstName + " " + lastName;
 	}
 
 	/** Gets the student list of favorite schools
