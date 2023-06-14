@@ -2,33 +2,37 @@ package model;
 
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author Yanis Kouidri
+ * @author Cedric Abdelbaki
+ */
 public class Main {
 
 	public static void main(String[] args) {
-		Set<Student> studentsList = null;
-		Set<School> schoolsList;
+
+		// Get the set of all students and the set of all schools
 		try {
-			schoolsList = FileManager.getSchoolsFromFile();
-			studentsList = FileManager.getStudentsFromFile(schoolsList);
+			// Read the JSON file :
+			Set<School> schoolsList = Utils.getSchoolsFromFile();
+			Set<Student> studentsList = Utils.getStudentsFromFile(schoolsList);
+
+			// For each school, convert a student id to a student object
+			Utils.setStudentPrefForEachSchool(schoolsList, studentsList);
+
+			Map<Student, School> result = Association.matchStudentsSchools(studentsList, schoolsList);
+
+			Utils.printResults(result);
+
 		} catch (FileNotFoundException e) {
-			System.err.println("File " + e.getMessage() + " not found");
+			System.err.println(e.getMessage());
 		}
+
+
 		
-		if (studentsList != null) {
-			for (Student stud : studentsList) {
-				System.out.println(stud.getFirstName() + " " + stud.getLastName());
-				ArrayList<School> studPrefSchool = stud.getSchoolPreferences();
-				for(School aSchool : studPrefSchool) {
-					System.out.print(aSchool.getSchoolName() + ", ");
-					System.out.println();
-				}
-				
-				System.out.println();
-			}
-		}
+
 		
 	}
 }

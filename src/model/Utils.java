@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -11,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 
-public final class FileManager {
+public final class Utils {
 	
 	private final static String STUD_FILE_PATH = "files/students.json";
 	private final static String SCHO_FILE_PATH = "files/schools.json";
@@ -94,6 +95,23 @@ public final class FileManager {
 					+ aStudent.getStudentId() + " is not on the schools list");
 		}
 
+	}
+
+	public static void setStudentPrefForEachSchool(Set<School> setOfAllSchools,
+												   Set<Student> setOfAllStudents) {
+		for (School aSchool : setOfAllSchools) {
+			aSchool.studentIdToStudentObject(setOfAllStudents);
+		}
+
+	}
+
+	public static void printResults(Map<Student, School> results) {
+		System.out.println("Number of student oriented : " + results.size());
+
+		for (Student eachStudent : results.keySet()) {
+			System.out.println(eachStudent.getFullName() + " will go at : "
+					+ results.get(eachStudent).getSchoolName());
+		}
 	}
 
 
