@@ -20,6 +20,7 @@ public final class Association {
     /**
      * The hearth of the program,
      * the algorithm who matchs students to schools according to their respective choices.
+     * //TODO make this method adaptable for student biding and school biding
      * @return The result of the match, for each student the school where he will go
      */
     public static Map<Student, School> matchStudentsSchools(Set<Student> students, Set<School> schools) {

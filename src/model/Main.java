@@ -25,6 +25,9 @@ public class Main {
 			Map<Student, School> result = Association.matchStudentsSchools(studentsList, schoolsList);
 
 			Utils.printResults(result);
+			//TODO print the number of rounds needed
+
+			//TODO Test with TD1 example
 
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
