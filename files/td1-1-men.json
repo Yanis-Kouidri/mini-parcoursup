@@ -1,0 +1,18 @@
+[
+  {
+    "schoolName" : "A",
+    "capacity" : "1",
+    "preferredStudents": ["02", "03", "01"]
+
+  },
+  {
+    "schoolName" : "B",
+    "capacity" : "1",
+    "preferredStudents": ["03", "01", "02"]
+  },
+  {
+    "schoolName" : "C",
+    "capacity" : "3",
+    "preferredStudents": ["01", "02", "03"]
+  }
+]

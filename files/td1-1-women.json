@@ -1,0 +1,20 @@
+[
+  {
+    "lastName": "Alpha",
+    "firstName": "-",
+    "studentId": "01",
+    "preferredSchools": ["A", "B", "C"]
+  },
+  {
+    "lastName": "Beta",
+    "firstName": "-",
+    "studentId": "02",
+    "preferredSchools": ["B", "C", "A"]
+  },
+  {
+    "lastName": "Gamma",
+    "firstName": "-",
+    "studentId": "03",
+    "preferredSchools": ["C", "A", "B"]
+  }
+]
