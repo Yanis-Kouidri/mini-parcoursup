@@ -1,9 +1,6 @@
 package model;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The static class make the match between Students and School according to the stable marriage algorithm
@@ -19,12 +16,15 @@ public final class Association {
 
     /**
      * The hearth of the program,
-     * the algorithm who matchs students to schools according to their respective choices.
+     * the algorithm who matches students to schools according to their respective choices.
+     * In this method,
+     * students go in the garden of their favorite school and school decide who can stay and who take a hike.
+     * In other term, schools are bidding.
      * //TODO make this method adaptable for student biding and school biding
      * @return The result of the match, for each student the school where he will go
      */
-    public static Map<Student, School> matchStudentsSchools(Set<Student> students, Set<School> schools) {
-        Set<Student> studentWithoutSchool = new HashSet<>(students); //Copying students'
+    public static Map<Student, School> matchWithSchoolBidding(Set<Student> students, Set<School> schools) {
+        Set<Student> studentWithoutSchool = new HashSet<>(students); //Copying students
         // list
         int roundNumber = 0; // initialization of the round counter
         Map<School, Set<Student>> waitingStudents = new HashMap<>(); // For each school, the student on the waiting list
@@ -121,6 +121,150 @@ public final class Association {
             }
         }
         return studentWithoutSchool;
+    }
+
+    public static Map<Student, School> matchWithStudentBidding(Set<Student> students, Set<School> schools) {
+        Set<School> schoolsList = new HashSet<>(schools); // school without a complete list of students
+        Map<School, Integer> schoolsRemainingCapacity = initializeSchoolCapacity(schools);
+
+        Map<Student, Set<School>> studentsBidding = initializeStudentBidding(students); // For each student,
+        // schools on his waiting list
+        boolean endOfBidding = false;
+
+
+        int roundNumber = 0; // initialization of the round counter
+
+        while (!endOfBidding) {
+
+            if (DEBUG) {
+                System.out.println("We are at round number " + roundNumber);
+
+                System.out.println("Student without school : ");
+                //printAStudentSet(studentWithoutSchool);
+                System.out.println();
+
+                System.out.println("Waiting list : ");
+                //printAMap(waitingStudents);
+                System.out.println();
+            }
+
+            // Step 1: Schools send propositions to the student if it remains places
+
+            for (School aSchool : schoolsList) {
+                if (schoolsRemainingCapacity.get(aSchool) > 0) {
+                    //Get the first choice (in terms of student) of the school
+                    Student firstChoiceStudent = aSchool.getStudentPreferences().get(0);
+
+                    //Add the current school to the waiting list of the student
+                    studentsBidding.get(firstChoiceStudent).add(aSchool);
+
+                    //Remove this student of the school choices
+                    aSchool.getStudentPreferences().remove(0);
+                }
+            }
+
+            // Step 2: Students keep only the best proposition
+
+            // For all students
+            for (Student aStudent : studentsBidding.keySet()) {
+
+                // If the student has at least 2 proposition, he chooses the best one.
+                if (studentsBidding.get(aStudent).size() > 1) {
+
+                    // Get the best proposition according to the student choices
+                    School schoolRetain = getBestProposition(aStudent, studentsBidding.get(aStudent));
+                    Set<School> updatedChoice = new HashSet<>();
+                    updatedChoice.add(schoolRetain);
+                    studentsBidding.put(aStudent, updatedChoice);
+                }
+            }
+
+            // Step 3: Recompute the school remaining capacity.
+            schoolsRemainingCapacity = computeSchoolCapacity(schools, studentsBidding);
+
+            // Step 4: Checks if the bidding process is ended
+            boolean ended = true;
+            for (Student aStudent : studentsBidding.keySet()) {
+                if (studentsBidding.get(aStudent).size() != 1) {
+                    ended = false;
+                    break;
+                }
+            }
+            if (ended) {
+                endOfBidding = true;
+            }
+
+            roundNumber++;
+        }
+
+        // Return result
+
+        Map<Student, School> results = new HashMap<>();
+
+        for (Student aStudent : studentsBidding.keySet()) {
+            for (School aSchool : schoolsList) {
+                if (studentsBidding.get(aStudent).contains(aSchool)) {
+                    results.put(aStudent, aSchool);
+                    break;
+                }
+            }
+        }
+
+        return results;
+        
+    }
+
+    /**
+     * For a student who has a list of propositions made by school.
+     * Return the best one according to their criteria
+     */
+    private static School getBestProposition(Student aStudent, Set<School> proposition) {
+        List<School> studentPreferences = aStudent.getSchoolPreferences();
+
+        School studentChoice = null; //The school that the student decides to retain
+
+        for (School aPreference : studentPreferences) {
+            if (proposition.contains(aPreference)) {
+                studentChoice = aPreference;
+            }
+        }
+        return studentChoice;
+
+    }
+    
+    private static Map<School, Integer> initializeSchoolCapacity(Set<School> allSchools) {
+        Map<School, Integer> mapOfSchoolsCapacity = new HashMap<>();
+        for(School aSchool : allSchools) {
+            mapOfSchoolsCapacity.put(aSchool, aSchool.getSchoolCapacity());
+        }
+        return mapOfSchoolsCapacity;
+    }
+
+    private static Map<School, Integer> computeSchoolCapacity(Set<School> allSchools, Map<Student, Set<School>> studentsBidding) {
+        Map<School, Integer> mapOfSchoolsCapacity = initializeSchoolCapacity(allSchools);
+
+        // For each school
+        for (School aSchool : allSchools) {
+
+            // browse each student
+            for (Student aStudent : studentsBidding.keySet()) {
+
+                // If the student has this school on him choice, removing 1 at school remaining capacity
+                if (studentsBidding.get(aStudent).contains(aSchool)) {
+                    int previousValue = mapOfSchoolsCapacity.get(aSchool);
+                    mapOfSchoolsCapacity.put(aSchool, previousValue - 1);
+                }
+            }
+        }
+        return mapOfSchoolsCapacity;
+    }
+
+    private static Map<Student, Set<School>> initializeStudentBidding(Set<Student> allStudents) {
+        Map<Student, Set<School>> mapOfStudentReceivedProposition = new HashMap<>();
+        for(Student aStudent : allStudents) {
+            mapOfStudentReceivedProposition.put(aStudent, new HashSet<>());
+        }
+        return mapOfStudentReceivedProposition;
     }
 
     /**
