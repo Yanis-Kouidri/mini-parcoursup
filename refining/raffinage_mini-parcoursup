@@ -2,14 +2,14 @@ On a une liste d'écoles.
 On a une liste d'étudiants.
 
 Chaque étudiant à une liste ordonnée de ses écoles préférées.
-Chaque écoles à une lsite ordonnée de ses étudiant préférés.
+Chaque écoles à une liste ordonnée de ses étudiants préférés.
 
 Dans le cas ou les écoles sont sur le balcon.
 
 Au premier tour, chaque étudiant se place sous le balcon son école préféré école.
 L'école
 
-On veut écrire un programme qui a partir d'une liste d'étudiants avec pour chaque étudiant un choix et une liste d'école avec une liste ordonnée de ses étudiant préfére, trouver une école pour chaque étudiant.
+On veut écrire un programme qui a partir d'une liste d'étudiants avec pour chaque étudiant un choix et une liste d'école avec une liste ordonnée de ses étudiants préférés, trouver une école pour chaque étudiant.
 
 R1 : Comment R0 ?
 
@@ -17,7 +17,7 @@ R1 : Comment R0 ?
 	Créer un dictionnaire école -> étudiants dans sa cour
 	numéro de tour = 0
 	Tant que "Il reste des étudiants sans école"
-		Placer les étudiant dans des écoles
+		Placer les étudiants dans des écoles
 		Incrémenter le numéro de tour
 	Fin tant que
 	Assigner pour chaque étudiant l'école dans laquelle il ira
@@ -26,7 +26,7 @@ R1 : Comment R0 ?
 R2 : Comment : "Créer une liste des étudiants sans école" ?
 	Copier la liste des tous les étudiants
 
-R2 : Comment "Placer les étudiant dans des écoles ?"
+R2 : Comment "Placer les étudiants dans des écoles ?"
 
 	Placer les étudiants dans la cour de leur école de i ème choix (i dépend du tour)
 	Décider qui reste dans la cour et qui part
@@ -39,8 +39,8 @@ R2 : Comment "Il reste des étudiants sans école" ?
 R3 : Comment "Placer les étudiants dans la cour de leur école de premier choix" ?
 
 	
-	Pour unEtudiant dans Tous les étudiant sans école
-		Récupérer ieme choix en fonction du numéro de tour
+	Pour un étudiant dans Tous les étudiants sans école
+		Récupérer le i ème choix en fonction du numéro de tour
 		ajouter l'étudiant dans la cour de l'école
 	Fin Pour
 
@@ -48,10 +48,10 @@ R3 : Comment "Placer les étudiants dans la cour de leur école de premier choix
 
 R3 : Comment "Décider qui reste dans la cour et qui part" ?
 
-	Pour toute les écoles
+	Pour toutes les écoles
 
-		Si le nombre d'étudiant dans la cour de l'école est inférieur ou égale à la capacité de l'école alors:
-			Tous les étudiant restent dans la cour et sont en attente
+		Si le nombre d'étudiants dans la cour de l'école est inférieur ou égale à la capacité de l'école alors:
+			Tous les étudiants restent dans la cour et sont en attente
 		Sinon
 			L'école choisi x étudiants selon sa liste de choix (x est la capacité maximale de l'école)
 	Fin Pour
@@ -61,14 +61,14 @@ R3 : Comment " Calculer la liste des étudiants sans école." ?
 
 R4 : comment : " L'école choisi x étudiants selon sa liste de choix (x est la capacité maximale de l'école) "
 
-	capacite_restante = capacité école
+	capacité restante = capacité école
 	Pour un étudiant dans les choix d'étudiants de l'école :
 		Si capacité restante > 0 alors
 		
 			Si l'étudiant est dans la cour alors
 				Ajouter l'étudiant à la liste des "en attente"
 				Retirer l'étudiant ajouté des étudiants sans école
-				capacite_restante - 1
+				capacité restante - 1
 			Sinon
 				Continuer (ne rien faire)
 			Fin si
@@ -80,5 +80,105 @@ R4 : comment : " L'école choisi x étudiants selon sa liste de choix (x est la 
 
 		
 	
-	
+On a une liste d'étudiant et d'école.
+Chaque étudiant à une liste exhaustive de ses choix d'école.
+Chaque école à une liste exhaustive de ses choix d'étudiant.
+Au tour numéro 1 : 
+Chaque école prend le premier étudiant qu'elle à sur sa liste de choix.
+Chaque étudiant à donc 0,1 ou plusieurs école qui lui font une proposition.
+S'il y a une seule école, l'étudiant garde cette proposition.
+S'il y en a plusieurs, l'étudiant choisi celle qui est le plus haut dans sa liste de choix et dit non aux autres.
+Tant que l'école n'est pas pl
+
+
+Pour une école dans touts les écoles:
+	x = nombre de place
+	liste = récupérer les x premiers choix d'étudiants
+	Pour un étudiant dans liste:
+		un étudiant.proposition = une école
+	fin pour
+fin pour
+Pour tous les étudiants:
+	pour un choix dans ses choix
+		pour une proposition dans ses propositions:
+			Si une proposition == un choix
+			Garder juste une proposition
+		Fin pour
+	Fin pour
+Fin pour
+
+Consigne : écrire un programme qui associe chaque étudiant avec une école en laissant décider les étudiants.
+
+R0 : écrire un programme qui associe chaque étudiant avec une école en laissant décider les étudiants.
+
+R1 : Comment : R0 ?
+    numéro de tour = 0
+    Tant que tous les étudiants non pas une seule école sur leur liste de proposition alors:
+        Les écoles envoient une proposition au prochain étudiant sur leur liste s'il reste de la place
+        Les étudiants choisissent la meilleure école selon leurs critères
+        La capacité restante des écoles est recalculée
+        Le critère de la boucle Tant Que est recalculé
+        numéro de tour ++
+
+    Fin Tant que
+
+
+R2 : Comment "Les écoles envoient une proposition au prochain étudiant sur leur liste s'il reste de la place ?"
+    S'il reste de la place alors:
+        On récupère l'étudiant numéro un sur la liste
+        On ajoute l'école à la liste des propositions de cet étudiant
+        On le supprime de la liste
+    Sinon
+        Rien
+    Fin Si
+
+R2 : Comment "Les étudiants choisissent la meilleure école selon leurs critères" ?
+    Pour tout leurs choix:
+        Pour toutes les proposition :
+               si un choix == à une proposition alors:
+                    sa liste de proposition = ce choix
+               Sinon rien
+               Fin Si
+        Fin pour
+    Fin pour
+
+R2 : Comment : La capacité restante des écoles est recalculée ?
+    Pour tout les étudiants,
+        si leur liste d'attente contient une école alors
+            On enlève un a la capacité restante de cette école
+        Sinon rien
+        Fin si
+    Fin pour
+
+R2 : Comment : "Le critère de la boucle Tant Que est recalculé" ?
+    Fin = vrai
+        Pour tout les étudiants,
+            si leur liste d'attente ne contient pas d'école alors
+                fin = faux
+                Sortir de la boucle pour
+            Sinon rien
+            Fin si
+        Fin pour
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
