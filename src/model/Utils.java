@@ -14,13 +14,12 @@ import com.google.gson.JsonObject;
 
 public final class Utils {
 	
-	private final static String STUD_FILE_PATH = "files/students.json";
-	private final static String SCHO_FILE_PATH = "files/schools.json";
+	private final static String DATA_FILE_PATH = "files/";
 	
-	public static HashSet<Student> getStudentsFromFile(Set<School> listOfAllSchool) throws FileNotFoundException {
+	public static HashSet<Student> getStudentsFromFile(Set<School> listOfAllSchool, String studentsFileName) throws FileNotFoundException {
 
 		HashSet<Student> studentsList = new HashSet<>();
-		JsonArray studentsArray = createJsonArray(STUD_FILE_PATH);
+		JsonArray studentsArray = createJsonArray(DATA_FILE_PATH+studentsFileName);
 
 		for (JsonElement element : studentsArray) {
 			JsonObject student = element.getAsJsonObject();
@@ -39,10 +38,10 @@ public final class Utils {
 		return studentsList;
 	}
 	
-	public static HashSet<School> getSchoolsFromFile() throws FileNotFoundException  {
+	public static HashSet<School> getSchoolsFromFile(String schoolsFileName) throws FileNotFoundException  {
 		HashSet<School> schoolsList = new HashSet<>();
 
-		JsonArray schoolsArray = createJsonArray(SCHO_FILE_PATH);
+		JsonArray schoolsArray = createJsonArray(DATA_FILE_PATH+schoolsFileName);
 		for (JsonElement element : schoolsArray) {
 
 			JsonObject school = element.getAsJsonObject();
