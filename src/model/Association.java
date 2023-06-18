@@ -19,8 +19,9 @@ public final class Association {
      * the algorithm who matches students to schools according to their respective choices.
      * In this method,
      * students go in the garden of their favorite school and school decide who can stay and who take a hike.
-     * In other term, schools are bidding.
-     * //TODO make this method adaptable for student biding and school biding
+     * In another term, schools are bidding.
+     * @param students The set of all students
+     * @param schools The set of all schools
      * @return The result of the match, for each student the school where he will go
      */
     public static Map<Student, School> matchWithSchoolBidding(Set<Student> students, Set<School> schools) {
@@ -103,6 +104,7 @@ public final class Association {
             }
         }
 
+        System.out.println("Number of round to converge : " + roundNumber);
         return matchResult;
     }
 
@@ -123,6 +125,17 @@ public final class Association {
         return studentWithoutSchool;
     }
 
+    /**
+     * The hearth of the program,
+     * the algorithm who matches students to schools according to their respective choices.
+     * In this method,
+     * schools send proposition to their favorite students and each round,
+     * students cherry-pick the best one and say no to each other.
+     * In another term, students are bidding.
+     * @param students The set of all students
+     * @param schools The set of all schools
+     * @return The result of the match, for each student the school where he will go
+     */
     public static Map<Student, School> matchWithStudentBidding(Set<Student> students, Set<School> schools) {
         Set<School> schoolsList = new HashSet<>(schools); // school without a complete list of students
         Map<School, Integer> schoolsRemainingCapacity = initializeSchoolCapacity(schools);
@@ -210,6 +223,7 @@ public final class Association {
             }
         }
 
+        System.out.println("Number of round to converge : " + roundNumber);
         return results;
         
     }

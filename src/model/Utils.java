@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 public final class Utils {
 	
 	private final static String DATA_FILE_PATH = "files/";
+	public final static String DELIMITER = "------------------------------------";
 	
 	public static HashSet<Student> getStudentsFromFile(Set<School> listOfAllSchool, String studentsFileName) throws FileNotFoundException {
 
@@ -106,11 +107,21 @@ public final class Utils {
 
 	public static void printResults(Map<Student, School> results) {
 		System.out.println("Number of student oriented : " + results.size());
+		System.out.println(DELIMITER);
+		System.out.println("Results :");
+		System.out.println(DELIMITER);
 
 		for (Student eachStudent : results.keySet()) {
 			System.out.println(eachStudent.getFullName() + " will go at : "
 					+ results.get(eachStudent).getSchoolName());
 		}
+	}
+
+	public static void printProgramUsage() {
+		System.out.println("Usage : java Main [schoolsBidding | studentsBidding] <schoolFileName> <studentFileName> ");
+		System.out.println("Place you json file into mini-parcoursup/files/");
+		System.out.println("Make sure your JSON files are well formatted.");
+		System.out.println("A wrong formatted JSON files can occasion inconsistent results, infinite looping program or an error during the process");
 	}
 
 
