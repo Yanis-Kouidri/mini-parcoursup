@@ -12,7 +12,7 @@
   },
   {
     "schoolName" : "C",
-    "capacity" : "3",
+    "capacity" : "1",
     "preferredStudents": ["01", "02", "03"]
   }
 ]
