@@ -109,12 +109,17 @@ public class School {
     }
 
     public void studentIdToStudentObject(Set<Student> allTheStudents) {
-        for(Student aStudent : allTheStudents) {
-            if (studentIdPreferences.contains(aStudent.getStudentId())) {
-                try {
-                    addStudentToPref(aStudent);
-                } catch (StudentAlreadyPrefException e) {
-                    throw new RuntimeException(e);
+        // For the first student id
+        for (int aStudentId : studentIdPreferences) {
+            // Test all the student to find the matching id
+            for (Student aStudent : allTheStudents) {
+                // If it is found, add it
+                if (aStudent.getStudentId() == aStudentId) {
+                    try {
+                        addStudentToPref(aStudent);
+                    } catch (StudentAlreadyPrefException e) { // That should not happen
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }
