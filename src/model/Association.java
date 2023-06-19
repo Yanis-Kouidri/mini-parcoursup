@@ -173,6 +173,7 @@ public final class Association {
 
                     //Remove this student of the school choices
                     aSchool.getStudentPreferences().remove(0);
+                    //FIXME Remove it now is too early and cause problems
                 }
             }
 
