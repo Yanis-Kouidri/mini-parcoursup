@@ -37,7 +37,6 @@ public final class Association {
 
         boolean finished = false;
 
-
         while (!finished) {
 
             if (DEBUG) {
@@ -156,7 +155,7 @@ public final class Association {
         Set<School> schoolsList = new HashSet<>(schools); // Set of all schools
 
         Map<Student, Set<School>> studentsBidding = initializeStudentBidding(students); // For each student,
-        // schools on his waiting list
+        // Schools on his waiting list
         boolean endOfBidding = false;
 
 
