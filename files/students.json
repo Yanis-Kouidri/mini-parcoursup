@@ -1,0 +1,56 @@
+[
+  {
+    "lastName": "De La Fonaine",
+    "firstName": "Jean",
+    "studentId": "01",
+    "preferredSchools": ["ENSIMAG", "CESI", "ENSEEIHT"]
+  },
+  {
+    "lastName": "Hugo",
+    "firstName": "Victor",
+    "studentId": "02",
+    "preferredSchools": ["ENSIMAG", "CESI", "ENSEEIHT"]
+  },
+  {
+    "lastName": "De Balzac",
+    "firstName": "Honoré",
+    "studentId": "03",
+    "preferredSchools": ["ENSEEIHT", "ENSIMAG", "CESI"]
+  },
+  {
+    "lastName": "De Maupassant",
+    "firstName": "Guy",
+    "studentId": "04",
+    "preferredSchools": ["ENSEEIHT", "CESI", "ENSIMAG"]
+  },
+  {
+    "lastName": "Stendhal",
+    "firstName": "Marie-Henri",
+    "studentId": "05",
+    "preferredSchools": ["CESI", "ENSEEIHT", "ENSIMAG"]
+  },
+  {
+    "lastName": "Sallis",
+    "firstName": "Kassandra",
+    "studentId": "06",
+    "preferredSchools": ["ENSEEIHT", "ENSIMAG", "CESI"]
+  },
+  {
+    "lastName": "Le Grand",
+    "firstName": "Alexandre",
+    "studentId": "07",
+    "preferredSchools": ["CESI","ENSEEIHT", "ENSIMAG"]
+  },
+  {
+    "lastName": "Mistral",
+    "firstName": "Frédéric",
+    "studentId": "08",
+    "preferredSchools": ["ENSEEIHT", "CESI","ENSIMAG"]
+  },
+  {
+    "lastName": "Appolinaire",
+    "firstName": "Guillaume",
+    "studentId": "09",
+    "preferredSchools": ["ENSEEIHT", "CESI", "ENSIMAG"]
+  }
+]
