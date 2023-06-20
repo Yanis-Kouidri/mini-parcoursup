@@ -161,6 +161,17 @@ R2 : Comment : "Le critère de la boucle Tant Que est recalculé" ?
         Fin pour
 
 
+Next try:
+
+Chaque école propose à ses x prochains étudiants préférés.
+x étant la capacité maximal de l'école.
+
+Chaque étudiant répond "repropose moi" (ne fait rien)
+à son école préférée qui
+lui a fait une proposition et NON à toutes les autres
+
+Toutes les écoles à qui l'étudiant à répondu NON retirent cet
+ étudiant de leur liste d'étudiants désirés
 
 
 

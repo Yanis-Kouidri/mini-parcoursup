@@ -1,0 +1,26 @@
+[
+  {
+    "lastName": "Alpha",
+    "firstName": "-",
+    "studentId": "01",
+    "preferredSchools": ["A", "B", "C", "D"]
+  },
+  {
+    "lastName": "Beta",
+    "firstName": "-",
+    "studentId": "02",
+    "preferredSchools": ["A", "B", "C", "D"]
+  },
+  {
+    "lastName": "Gamma",
+    "firstName": "-",
+    "studentId": "03",
+    "preferredSchools": ["B", "C", "A", "D"]
+  },
+  {
+    "lastName": "Delta",
+    "firstName": "-",
+    "studentId": "04",
+    "preferredSchools": ["C", "A", "B", "D"]
+  }
+]

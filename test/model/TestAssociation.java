@@ -7,6 +7,7 @@ import java.util.Set;
 /**
  * A class to test Association
  * @author Yanis Kouidri
+ * @author Cédric Abdelbaki
  * @version 0.1
  */
 public class TestAssociation {

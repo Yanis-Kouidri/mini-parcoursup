@@ -12,6 +12,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 
+/**
+ * All utils methods
+ * @author Yanis Kouidri
+ * @author Cédric Abdelbaki
+ */
 public final class Utils {
 	
 	private final static String DATA_FILE_PATH = "files/";

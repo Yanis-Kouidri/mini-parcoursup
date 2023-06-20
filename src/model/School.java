@@ -3,27 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A Java class to define schools
  * @author Yanis Kouidri
+ * @author Cédric Abdelbaki
  * @version 0.1
  */
 public class School {
 
     // Attributes
-
-    /**
-     * This counter allows adding a unique id to each school
-     * -1 is use to start at 0
-     */
-    private static final AtomicInteger schoolCounter = new AtomicInteger(0);
-
-    /**
-     * The unique id for each school
-     */
-    private final int schoolId;
 
     /**
      * The name of the school
@@ -55,7 +44,6 @@ public class School {
         if (schoolCapacity < 1) {
             throw new IllegalArgumentException("The school capacity can't be null or negative");
         }
-        this.schoolId = schoolCounter.getAndIncrement();
         this.schoolName = schoolName;
         this.schoolCapacity = schoolCapacity;
         this.studentPreferences = new ArrayList<>();
@@ -63,10 +51,6 @@ public class School {
     }
 
     // Methods
-
-    public int getSchoolId() {
-        return schoolId;
-    }
 
     public String getSchoolName() {
         return schoolName;

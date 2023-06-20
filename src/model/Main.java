@@ -8,6 +8,7 @@ import java.util.Set;
 /**
  * @author Yanis Kouidri
  * @author Cedric Abdelbaki
+ * @version 0.1
  */
 public class Main {
 
@@ -15,7 +16,7 @@ public class Main {
 
 		if (args.length != 3) {
 			Utils.printProgramUsage();
-			throw new IllegalArgumentException("Too many arguments. Please provide the correct number of arguments.");
+			throw new IllegalArgumentException("Wrong number of arguments. Please provide the correct number of arguments.");
 		}
 		boolean schoolsBidding;
 

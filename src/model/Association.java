@@ -5,6 +5,7 @@ import java.util.*;
 /**
  * The static class make the match between Students and School according to the stable marriage algorithm
  * @author Yanis Kouidri
+ * @author Cédric Abdelbaki
  * @version 0.1
  */
 public final class Association {
@@ -34,8 +35,10 @@ public final class Association {
             waitingStudents.put(aSchool, new HashSet<>());
         }
 
+        boolean finished = false;
 
-        while (!studentWithoutSchool.isEmpty()) {
+
+        while (!finished) {
 
             if (DEBUG) {
                 System.out.println("We are at round number " + roundNumber);
@@ -50,46 +53,62 @@ public final class Association {
             }
 
 
-            // Place students on the school waiting list according to the i th choice.
+            // Step 1:
+            // Place students on the school's waiting list according to the i th choice.
             for (Student aStudent: studentWithoutSchool) {
-                School ithChoice = aStudent.getSchoolPreferences().get(roundNumber); // Get the i th choice of the student
-                waitingStudents.get(ithChoice).add(aStudent); // Add the student on the waiting list of the school
+                School firstChoice = aStudent.getSchoolPreferences().get(0); // Get the i th choice of the student
+                waitingStudents.get(firstChoice).add(aStudent); // Add the student on the waiting list of the school
             }
 
-            // Decide who stay in the waiting list and who get out
-            for (School aSchool: schools){
-                // Get students in waiting list for "aSchool"
-                Set<Student> studentInWaitingList = waitingStudents.get(aSchool);
+            // Re-calculation of students not on a school waiting list
 
-                // Get school maximal capacity
-                int remainingCapacity = aSchool.getSchoolCapacity();
-                Set<Student> updatingWaitingList = new HashSet<>();
+            if (isSchoolAdmissionListsAreGood(schools, waitingStudents)) {
+                finished = true;
+            } else {
 
-                for (Student aStudent: aSchool.getStudentPreferences()) {
+                // Step 2:
+                // Decide who can stay in the waiting list
+                // and who get out
+                for (School aSchool : schools) {
+                    // Get students in waiting list for "aSchool"
+                    Set<Student> studentInWaitingList = waitingStudents.get(aSchool);
 
-                    if (remainingCapacity > 0) { // While it remains capacity
+                    // If there are more applicants than the school can accept :
+                    if (studentInWaitingList.size() > aSchool.getSchoolCapacity()) {
 
-                        if (studentInWaitingList.contains(aStudent)) { // if the first desired student is in the waiting list,
-                            // accept him,
-                            // else go next
-                            updatingWaitingList.add(aStudent);
-                            remainingCapacity--;
+                        // Get school maximal capacity
+                        int remainingCapacity = aSchool.getSchoolCapacity();
+                        Set<Student> notRejectedStudents = new HashSet<>();
+
+                        for (Student aStudent : aSchool.getStudentPreferences()) {
+                            if (remainingCapacity > 0) { // While it remains capacity
+
+                                if (studentInWaitingList.contains(aStudent)) { // if the first desired student is in the waiting list,
+                                    // accept him,
+                                    // else go next
+                                    notRejectedStudents.add(aStudent);
+                                    remainingCapacity--;
+                                }
+                            } else {
+                                break;
+                            }
                         }
-                    } else {
-                        break;
+
+                        studentInWaitingList.removeAll(notRejectedStudents);
+
+                        for (Student aStudent : studentInWaitingList) {
+                            aStudent.getSchoolPreferences().remove(aSchool);
+                        }
                     }
 
+                    // Reset the waiting list
+                    waitingStudents.get(aSchool).clear();
                 }
-                // Update the waiting list
-                waitingStudents.put(aSchool, updatingWaitingList);
-                // Re-calculation of students not on a school waiting list
-                studentWithoutSchool = reComputeUnrankedStudents(students, waitingStudents);
-
             }
             roundNumber++;
         }
         if (DEBUG) {
-            System.out.println("Waiting list : ");
+            System.out.println("Waiting list: ");
             printAMap(waitingStudents);
             System.out.println();
         }
@@ -104,25 +123,22 @@ public final class Association {
             }
         }
 
-        System.out.println("Number of round to converge : " + roundNumber);
+        System.out.println("Number of round to converge: " + roundNumber);
         return matchResult;
     }
 
-    /**
-     * This method will recalculate the set of students without a school
-     * (not in a waiting list)
-     * @param listOfAllStudent The list of all students
-     * @param waitingStudent The waiting list for each school
-     * @return The recalculated set of students not in a waiting list
-     */
-    private static Set<Student> reComputeUnrankedStudents(Set<Student> listOfAllStudent, Map<School, Set<Student>> waitingStudent) {
-        Set<Student> studentWithoutSchool = new HashSet<>(listOfAllStudent);
-        for (School keySchool: waitingStudent.keySet()) {
-            for(Student aStudent : waitingStudent.get(keySchool)) {
-                studentWithoutSchool.remove(aStudent);
+    private static boolean isSchoolAdmissionListsAreGood(Set<School> listOfAllSchool, Map<School, Set<Student>> waitingStudents ) {
+
+        boolean processFinished = true;
+
+        for (School aSchool : listOfAllSchool) {
+            if (aSchool.getSchoolCapacity() != waitingStudents.get(aSchool).size()) {
+                processFinished = false;
+                break;
             }
+
         }
-        return studentWithoutSchool;
+        return processFinished;
     }
 
     /**
@@ -137,8 +153,7 @@ public final class Association {
      * @return The result of the match, for each student the school where he will go
      */
     public static Map<Student, School> matchWithStudentBidding(Set<Student> students, Set<School> schools) {
-        Set<School> schoolsList = new HashSet<>(schools); // school without a complete list of students
-        Map<School, Integer> schoolsRemainingCapacity = initializeSchoolCapacity(schools);
+        Set<School> schoolsList = new HashSet<>(schools); // Set of all schools
 
         Map<Student, Set<School>> studentsBidding = initializeStudentBidding(students); // For each student,
         // schools on his waiting list
@@ -152,11 +167,11 @@ public final class Association {
             if (DEBUG) {
                 System.out.println("We are at round number " + roundNumber);
 
-                System.out.println("Student without school : ");
+                System.out.println("Student without school: ");
                 //printAStudentSet(studentWithoutSchool);
                 System.out.println();
 
-                System.out.println("Waiting list : ");
+                System.out.println("Waiting list: ");
                 //printAMap(waitingStudents);
                 System.out.println();
             }
@@ -164,39 +179,18 @@ public final class Association {
             // Step 1: Schools send propositions to the student if it remains places
 
             for (School aSchool : schoolsList) {
-                if (schoolsRemainingCapacity.get(aSchool) > 0) {
-                    //Get the first choice (in terms of student) of the school
-                    Student firstChoiceStudent = aSchool.getStudentPreferences().get(0);
 
-                    //Add the current school to the waiting list of the student
-                    studentsBidding.get(firstChoiceStudent).add(aSchool);
+                // Get the x preferred students according to the school capacity
+                for (int i = 0 ; i < aSchool.getSchoolCapacity() ; i++) {
+                    // Get the ith student
+                    Student ithChoiceStudent = aSchool.getStudentPreferences().get(i);
 
-                    //Remove this student of the school choices
-                    aSchool.getStudentPreferences().remove(0);
-                    //FIXME Remove it now is too early and cause problems
+                    // Add this school to the student available choice of school
+                    studentsBidding.get(ithChoiceStudent).add(aSchool);
                 }
             }
 
-            // Step 2: Students keep only the best proposition
-
-            // For all students
-            for (Student aStudent : studentsBidding.keySet()) {
-
-                // If the student has at least 2 proposition, he chooses the best one.
-                if (studentsBidding.get(aStudent).size() > 1) {
-
-                    // Get the best proposition according to the student choices
-                    School schoolRetain = getBestProposition(aStudent, studentsBidding.get(aStudent));
-                    Set<School> updatedChoice = new HashSet<>();
-                    updatedChoice.add(schoolRetain);
-                    studentsBidding.put(aStudent, updatedChoice);
-                }
-            }
-
-            // Step 3: Recompute the school remaining capacity.
-            schoolsRemainingCapacity = computeSchoolCapacity(schools, studentsBidding);
-
-            // Step 4: Checks if the bidding process is ended
+            // Step 2: Checks if the bidding process is ended
             boolean ended = true;
             for (Student aStudent : studentsBidding.keySet()) {
                 if (studentsBidding.get(aStudent).size() != 1) {
@@ -206,6 +200,30 @@ public final class Association {
             }
             if (ended) {
                 endOfBidding = true;
+            } else {
+
+                // Step 3: Students keep only the best proposition
+
+                // For all students
+                for (Student aStudent : studentsBidding.keySet()) {
+
+                    // If the student has at least 2 proposition, he chooses the best one.
+                    if (studentsBidding.get(aStudent).size() > 1) {
+
+                        // Get the best proposition according to the student choices
+                        School schoolRetain = getBestProposition(aStudent, studentsBidding.get(aStudent));
+
+                        // notify schools that the student refused it
+                        for (School aRefusedSchool : studentsBidding.get(aStudent)) {
+                            if (aRefusedSchool != schoolRetain) {
+                                aRefusedSchool.getStudentPreferences().remove(aStudent);
+                            }
+                        }
+
+                    }
+                    // Reset the set because the school will resent propositions
+                    studentsBidding.get(aStudent).clear();
+                }
             }
 
             roundNumber++;
@@ -224,7 +242,7 @@ public final class Association {
             }
         }
 
-        System.out.println("Number of round to converge : " + roundNumber);
+        System.out.println("Number of round to converge: " + roundNumber);
         return results;
         
     }
@@ -241,37 +259,12 @@ public final class Association {
         for (School aPreference : studentPreferences) {
             if (proposition.contains(aPreference)) {
                 studentChoice = aPreference;
+                break;
             }
+
         }
         return studentChoice;
 
-    }
-    
-    private static Map<School, Integer> initializeSchoolCapacity(Set<School> allSchools) {
-        Map<School, Integer> mapOfSchoolsCapacity = new HashMap<>();
-        for(School aSchool : allSchools) {
-            mapOfSchoolsCapacity.put(aSchool, aSchool.getSchoolCapacity());
-        }
-        return mapOfSchoolsCapacity;
-    }
-
-    private static Map<School, Integer> computeSchoolCapacity(Set<School> allSchools, Map<Student, Set<School>> studentsBidding) {
-        Map<School, Integer> mapOfSchoolsCapacity = initializeSchoolCapacity(allSchools);
-
-        // For each school
-        for (School aSchool : allSchools) {
-
-            // browse each student
-            for (Student aStudent : studentsBidding.keySet()) {
-
-                // If the student has this school on him choice, removing 1 at school remaining capacity
-                if (studentsBidding.get(aStudent).contains(aSchool)) {
-                    int previousValue = mapOfSchoolsCapacity.get(aSchool);
-                    mapOfSchoolsCapacity.put(aSchool, previousValue - 1);
-                }
-            }
-        }
-        return mapOfSchoolsCapacity;
     }
 
     private static Map<Student, Set<School>> initializeStudentBidding(Set<Student> allStudents) {

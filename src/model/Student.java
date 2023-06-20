@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 /** Allows creating a student object
  * @author Cédric ABDELBAKI
+ * @author Yanis Kouidri
  */
 
 public class Student {
