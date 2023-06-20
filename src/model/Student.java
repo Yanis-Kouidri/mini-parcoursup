@@ -53,7 +53,7 @@ public class Student {
 	}
 
 	public String getFullName() {
-		return firstName + " " + lastName;
+		return studentId + " " + firstName + " " + lastName;
 	}
 
 	/** Gets the student list of favorite schools
