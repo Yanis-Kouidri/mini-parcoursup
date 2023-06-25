@@ -59,13 +59,13 @@ public final class Association {
                 waitingStudents.get(firstChoice).add(aStudent); // Add the student on the waiting list of the school
             }
 
-            // Re-calculation of students not on a school waiting list
+            // Step 2: Re-calculation of students not on a school waiting list
 
             if (isSchoolAdmissionListsAreGood(schools, waitingStudents)) {
                 finished = true;
             } else {
 
-                // Step 2:
+                // Step 3:
                 // Decide who can stay in the waiting list
                 // and who get out
                 for (School aSchool : schools) {
@@ -175,7 +175,7 @@ public final class Association {
                 System.out.println();
             }
 
-            // Step 1: Schools send propositions to the student if it remains places
+            // Step 1: Schools send propositions to students according to their capacity
 
             for (School aSchool : schoolsList) {
 
