@@ -18,8 +18,11 @@ import com.google.gson.JsonObject;
  * @author Cédric Abdelbaki
  */
 public final class Utils {
-	
-	private final static String DATA_FILE_PATH = "files/";
+
+	/**
+	 * If "../files" is not found, put files or the absolute folder path for files
+	 */
+	private final static String DATA_FILE_PATH = "../files/";
 	public final static String DELIMITER = "------------------------------------";
 	
 	public static HashSet<Student> getStudentsFromFile(Set<School> listOfAllSchool, String studentsFileName) throws FileNotFoundException {
