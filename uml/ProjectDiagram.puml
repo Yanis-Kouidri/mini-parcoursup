@@ -1,63 +1,71 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-
+package model {
 class Student {
-- studentCounter : static int
-- studentId : int
-- lastName : String
-- firstName : String
-- grade : float
-- schoolPreferences : ArrayList<School>
-----
-+ getStudentId() : int
-+ getLastName() : String
-+ getFirstName() : String
-+ getGrade() : float
-+ getSchoolPreferences() : ArrayList<School>
-+ addSchoolToPref(School) : void
-----
-+ Student(lastName : String, firstName : String)
+    - studentId: int
+    - lastName: String
+    - firstName: String
+    - schoolPreferences: ArrayList<School>
+
+    + Student(String lastName, String firstName, int studentId)
+    + getStudentId(): int
+    + getLastName(): String
+    + getFirstName(): String
+    + getFullName(): String
+    + getSchoolPreferences(): ArrayList<School>
+    + addSchoolToPref(School schoolToAdd): void
 }
 
 class School {
-- schoolCounter : static int
-- schoolId : int
-- schoolName : String
-- studentPreferences : ArrayList<Student>
-----
-+ getSchoolId() : int
-+ getSchoolName() : String
-+ getStudentPreferences() : ArrayList<Student>
-+ addStudentToPref(Student) : void
-----
-+ School (schoolName : String)
+    - schoolName: String
+    - schoolCapacity: int
+    - studentPreferences: List<Student>
+    - studentIdPreferences: List<Integer>
+
+    + School(String schoolName, int schoolCapacity)
+    + getSchoolName(): String
+    + getStudentPreferences(): List<Student>
+    + getSchoolCapacity(): int
+    + addStudentToPref(Student prefStudent): void
+    + addStudentIdToPref(Integer idPrefStudent): void
+    + studentIdToStudentObject(Set<Student> allTheStudents): void
 }
 
-class FileManager {
-final static
-----
-----
-+ readStudentsFile() : ArrayList<Student>
-+ readSchoolsFile() : ArrayList<School>
-
+class Utils {
+    - DATA_FILE_PATH: String
+    + DELIMITER: String
+    + getStudentsFromFile(listOfAllSchool: Set<School>, studentsFileName: String): HashSet<Student>
+    + getSchoolsFromFile(schoolsFileName: String): HashSet<School>
+    + createJsonArray(filePath: String): JsonArray
+    + setSchoolPref(aStudent: Student, schoolName: String, listOfAllSchools: Set<School>): void
+    + setStudentPrefForEachSchool(setOfAllSchools: Set<School>, setOfAllStudents: Set<Student>): void
+    + printResults(results: Map<Student, School>): void
+    + printProgramUsage(): void
 }
 
 class Association {
-- result HashMap<String, String>
-----
-+ matchStudentsSchools(studentsList : ArrayList<Student>, schoolList : ArrayList<School>)
-+ printResult() : void
-+ writeResult() : void
+  - DEBUG: boolean
+  + matchWithSchoolBidding(students: Set<Student>, schools: Set<School>): Map<Student, School>
+  - isSchoolAdmissionListsAreGood(listOfAllSchool: Set<School>, waitingStudents: Map<School, Set<Student>>): boolean
+  + matchWithStudentBidding(students: Set<Student>, schools: Set<School>): Map<Student, School>
+  - getBestProposition(aStudent: Student, proposition: Set<School>): School
+  - initializeStudentBidding(allStudents: Set<Student>): Map<Student, Set<School>>
+  - printAStudentSet(setToPrint: Set<Student>): void
+  - printAMap(mapToPrint: Map<School, Set<Student>>): void
 }
 
 School "*" <..> "*" Student
 'School "0..1" -- "0..*" Student
-FileManager <.. "*" Student
-FileManager <.. "*" School
+Utils ..>  Student
+Utils ..>  School
 
-Association <.. "*" Student
-Association <.. "*" School
+Association ..>  Student
+Association ..>  School
+
+main ..> Association
+main ..> Utils
+}
 
 
 @enduml
